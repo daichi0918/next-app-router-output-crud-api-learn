@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { getTodoList } from '@/actions/todoApi';
 
 export default async function TodoListPage() {
@@ -20,7 +22,9 @@ export default async function TodoListPage() {
       <ul>
         {res.data.todos.map((todo) => (
           <li key={todo.id}>
-            <strong>{todo.title}</strong>
+            <Link href={`/todo/${todo.id}`}>
+              <strong>{todo.title}</strong>
+            </Link>
             {todo.content && <p>{todo.content}</p>}
           </li>
         ))}
