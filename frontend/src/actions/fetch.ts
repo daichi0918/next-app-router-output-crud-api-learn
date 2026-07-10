@@ -71,3 +71,21 @@ export const putFetch = async ({ path, body }: PutFetchArgs) => {
     body: JSON.stringify(body),
   });
 };
+
+type DeleteFetchArgs = {
+  path: string;
+};
+
+export const deleteFetch = async ({ path }: DeleteFetchArgs) => {
+  console.log('[server fetch]', {
+    method: 'DELETE',
+    path,
+  });
+
+  return fetch(`${BASE_URL}/${path}`, {
+    method: 'DELETE',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
+  });
+};

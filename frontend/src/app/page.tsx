@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { getTodoList } from '@/actions/todoApi';
+import { TodoListClient } from '@/components/TodoListClient';
 
 export default async function TodoListPage() {
   const res = await getTodoList();
@@ -22,19 +23,7 @@ export default async function TodoListPage() {
       <p>
         <Link href="/todo/create">Create Todo</Link>
       </p>
-      <ul>
-        {res.data.todos.map((todo) => (
-          <li key={todo.id}>
-            <Link href={`/todo/${todo.id}`}>
-              <strong>{todo.title}</strong>
-            </Link>
-            <p>
-              <Link href={`/todo/edit/${todo.id}`}>Edit</Link>
-            </p>
-            {todo.content && <p>{todo.content}</p>}
-          </li>
-        ))}
-      </ul>
+      <TodoListClient todos={res.data.todos} />
     </main>
   );
 }

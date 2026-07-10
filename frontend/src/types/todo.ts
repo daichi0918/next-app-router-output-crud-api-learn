@@ -23,3 +23,7 @@ export type UpdateTodoRequest = {
   title: string;
   content?: string;
 };
+
+export type DeleteTodoRequest = {
+  id: string;
+};

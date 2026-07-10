@@ -2,10 +2,11 @@
 
 import { StatusCodes } from 'http-status-codes';
 
-import { getFetch, postFetch, putFetch } from '@/actions/fetch';
+import { deleteFetch, getFetch, postFetch, putFetch } from '@/actions/fetch';
 import { ResponseType } from '@/types/ApiResponse';
 import {
   CreateTodoRequest,
+  DeleteTodoRequest,
   GetTodoRequest,
   TodoListResponseType,
   TodoType,
@@ -125,6 +126,38 @@ export const updateTodo = async (
         data,
       };
     }
+
+    return {
+      status: response.status,
+      errorCode: data.code,
+      errorMessage: data.message,
+    };
+  } catch (error) {
+    return {
+      status: StatusCodes.INTERNAL_SERVER_ERROR,
+      errorCode: `${StatusCodes.INTERNAL_SERVER_ERROR}`,
+      errorMessage: `Internal Server Error: ${error}`,
+    };
+  }
+};
+
+export const deleteTodo = async (
+  req: DeleteTodoRequest
+): Promise<ResponseType> => {
+  console.log('[Server Action] deleteTodo called:', req);
+
+  try {
+    const response = await deleteFetch({
+      path: `todos/${req.id}`,
+    });
+
+    if (response.status === StatusCodes.NO_CONTENT) {
+      return {
+        status: response.status,
+      };
+    }
+
+    const data = await response.json();
 
     return {
       status: response.status,
