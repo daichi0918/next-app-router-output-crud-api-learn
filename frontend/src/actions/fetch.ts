@@ -29,3 +29,45 @@ export const getFetch = async ({ path, tagName, cacheType }: GetFetchArgs) => {
     cache: cacheType,
   });
 };
+
+type PostFetchArgs = {
+  path: string;
+  body: Record<string, unknown>;
+};
+
+export const postFetch = async ({ path, body }: PostFetchArgs) => {
+  console.log('[server fetch]', {
+    method: 'POST',
+    path,
+    body,
+  });
+
+  return fetch(`${BASE_URL}/${path}`, {
+    method: 'POST',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
+    body: JSON.stringify(body),
+  });
+};
+
+type PutFetchArgs = {
+  path: string;
+  body: Record<string, unknown>;
+};
+
+export const putFetch = async ({ path, body }: PutFetchArgs) => {
+  console.log('[server fetch]', {
+    method: 'PUT',
+    path,
+    body,
+  });
+
+  return fetch(`${BASE_URL}/${path}`, {
+    method: 'PUT',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+    }),
+    body: JSON.stringify(body),
+  });
+};

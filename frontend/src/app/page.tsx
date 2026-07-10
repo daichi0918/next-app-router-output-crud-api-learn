@@ -19,12 +19,18 @@ export default async function TodoListPage() {
   return (
     <main>
       <h1>Todo List</h1>
+      <p>
+        <Link href="/todo/create">Create Todo</Link>
+      </p>
       <ul>
         {res.data.todos.map((todo) => (
           <li key={todo.id}>
             <Link href={`/todo/${todo.id}`}>
               <strong>{todo.title}</strong>
             </Link>
+            <p>
+              <Link href={`/todo/edit/${todo.id}`}>Edit</Link>
+            </p>
             {todo.content && <p>{todo.content}</p>}
           </li>
         ))}

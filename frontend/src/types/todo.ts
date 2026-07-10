@@ -12,3 +12,14 @@ export type TodoListResponseType = {
 export type GetTodoRequest = {
   id: string;
 };
+
+export type CreateTodoRequest = {
+  title: string;
+  content?: string;
+};
+
+export type UpdateTodoRequest = {
+  id: string;
+  title: string;
+  content?: string;
+};
